@@ -25,4 +25,8 @@ You can find your API keys in your account dashboard by:
 2. Going to your account name in the top-right corner
 3. Clicking on "My API" in the drop-down menu
 ```
-Usage Guide: How to interact with the application.
+### Usage Guide: How to interact with the application.
+```bash
+To run program, first you need to paste your api key to the class WeatherApp, line 57
+Then you can click to terminal and type in "python3 main.py"
+```
