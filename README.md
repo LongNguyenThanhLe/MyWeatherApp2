@@ -16,5 +16,13 @@ pip3 install -r requirements.txt
 
 At this point you should be good to go. You can run the program while sourced inside of the virtual environment. To exit the virtual environment, simply type `deactivate`. Make sure your IDE is set up to use the virtual environment as well. Visual Studio Code should automatically detect the virtual environment and use it.
 
-API Key Setup: Instructions for adding an API key via a .env file.
+### API Key Setup: Instructions for adding an API key via a .env file.
+```bash
+To get an OpenWeatherMap API key, you can:
+Go to the https://openweathermap.org/
+You can find your API keys in your account dashboard by:
+1. Signing in to your OpenWeather account
+2. Going to your account name in the top-right corner
+3. Clicking on "My API" in the drop-down menu
+```
 Usage Guide: How to interact with the application.
