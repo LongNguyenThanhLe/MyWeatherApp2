@@ -29,3 +29,13 @@ You can find your API keys in your account dashboard by:
 To run program, first you need to paste your api key to the class main.py, line 6
 Then you can click to terminal and type in "python3 main.py"
 
+### Running Tests
+1. Install pytest:
+```bash
+pip install pytest
+```
+2. Run the tests:
+```bash
+pytest
+```
+
