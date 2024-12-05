@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QVBoxLayout, QTextEdit
 from PyQt5.QtCore import Qt
 from api_client import APIClient
 from weather_display import WeatherDisplay
@@ -19,6 +19,8 @@ class WeatherUI(QWidget):
         self.temperature_label = QLabel(self)
         self.emoji_label = QLabel(self)
         self.description_label = QLabel(self)
+        self.forecast_text = QTextEdit(self)
+        self.forecast_text.setReadOnly(True)
 
         # Layout setup
         vbox = QVBoxLayout()
@@ -28,6 +30,7 @@ class WeatherUI(QWidget):
         vbox.addWidget(self.temperature_label)
         vbox.addWidget(self.emoji_label)
         vbox.addWidget(self.description_label)
+        vbox.addWidget(self.forecast_text)
         self.setLayout(vbox)
 
         # Center alignments and styling
@@ -64,17 +67,24 @@ class WeatherUI(QWidget):
             QLabel#description_label{
                 font-size: 50px;
             }
+            QTextEdit#forecast_text{
+                font-size: 20px;
+                background-color: #f8f9fa;
+                border: 2px solid #28a745;
+                border-radius: 5px;
+            }
         """)
 
     def get_weather(self):
         city = self.city_input.text()
         try:
             data = self.api_client.fetch_weather_data(city)
-            self.display_weather(data)
+            forecast_data = self.api_client.fetch_weather_forecast(city)
+            self.display_weather(data, forecast_data)
         except RuntimeError as e:
             self.display_error(str(e))
 
-    def display_weather(self, data):
+    def display_weather(self, data, forecast_data):
         temp_k = data["main"]["temp"]
         weather_id = data["weather"][0]["id"]
         description = data["weather"][0]["description"]
@@ -83,8 +93,12 @@ class WeatherUI(QWidget):
         self.emoji_label.setText(WeatherDisplay.get_weather_emoji(weather_id))
         self.description_label.setText(description)
 
+        formatted_forecast = WeatherDisplay.format_forecast(forecast_data)
+        self.forecast_text.setText("\n".join(formatted_forecast))
+
     def display_error(self, message):
         self.temperature_label.setStyleSheet("font-size: 30px;")
         self.temperature_label.setText(message)
         self.emoji_label.clear()
         self.description_label.clear()
+        self.forecast_text.clear()
