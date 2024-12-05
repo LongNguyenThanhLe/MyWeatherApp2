@@ -1,3 +1,4 @@
+from datetime import datetime
 class WeatherDisplay:
     @staticmethod
     def format_temperature(temp_k):
@@ -28,3 +29,16 @@ class WeatherDisplay:
             return "☁"
         else:
             return ""
+
+    @staticmethod
+    def format_forecast(forecast_data):
+        forecast_list = forecast_data.get("list", [])
+        formatted_forecast = []
+        for forecast in forecast_list[:96]:  # Get 4 days (96 hours)
+            timestamp = datetime.utcfromtimestamp(forecast["dt"]).strftime('%Y-%m-%d %H:%M')
+            temp = WeatherDisplay.format_temperature(forecast["main"]["temp"])
+            weather_id = forecast["weather"][0]["id"]
+            emoji = WeatherDisplay.get_weather_emoji(weather_id)
+            description = forecast["weather"][0]["description"]
+            formatted_forecast.append(f"{timestamp}: {temp}, {emoji}, {description}")
+        return formatted_forecast
