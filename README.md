@@ -1,4 +1,5 @@
 # final-project-LongNguyenThanhLe
+![project picture](Screen Shot 2025-01-30 at 2.55.33 AM.png)
 ## Getting Started
 ### Clone the repository and CD into the directory
 ```bash
